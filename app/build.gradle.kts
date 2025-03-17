@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-
+    kotlin("plugin.parcelize") version "1.8.10"
 }
 
 android {

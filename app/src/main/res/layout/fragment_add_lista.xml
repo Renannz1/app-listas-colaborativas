@@ -49,21 +49,21 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textTituloLista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome"
+                android:text="Título"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/nomeLista"
+                android:id="@+id/edtTituloLista"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_edit"
-                android:hint="Digite o nome da sua lista"
+                android:hint="Digite o título da sua lista"
                 android:padding="14dp"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +80,6 @@
                 android:textColor="@color/color_default"
                 app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtDescription"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
