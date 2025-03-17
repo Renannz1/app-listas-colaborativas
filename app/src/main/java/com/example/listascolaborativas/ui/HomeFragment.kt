@@ -49,6 +49,8 @@ class HomeFragment : Fragment() {
         }
 
         getLista()
+
+
     }
 
     private fun getLista() {
@@ -84,7 +86,14 @@ class HomeFragment : Fragment() {
     private fun initAdapter() {
         binding.recyclerViewLista.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewLista.setHasFixedSize(true)
-        listaAdapter = ListaAdapter(listaLista)
+        listaAdapter = ListaAdapter(listaLista) { lista ->
+            val bundle = Bundle().apply {
+                putString("titulo", lista.titulo)
+            }
+
+            findNavController().navigate(R.id.action_homeFragment_to_detailListaFragment, bundle)
+        }
+
         binding.recyclerViewLista.adapter = listaAdapter
     }
 

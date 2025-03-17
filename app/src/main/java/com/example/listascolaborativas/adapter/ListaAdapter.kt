@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.listascolaborativas.databinding.ListaAdapterBinding
 import com.example.listascolaborativas.model.Lista
 
-class ListaAdapter(private val ListaLista: List<Lista>) : RecyclerView.Adapter<ListaAdapter.MyViewHolder>() {
+class ListaAdapter(
+    private val ListaLista: List<Lista>,
+    private val onDetalharClick: (Lista) -> Unit
+) : RecyclerView.Adapter<ListaAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListaAdapter.MyViewHolder {
         return MyViewHolder(
@@ -20,11 +23,14 @@ class ListaAdapter(private val ListaLista: List<Lista>) : RecyclerView.Adapter<L
         val lista = ListaLista[position]
 
         holder.binding.textTituloLista.text = lista.titulo
-        holder.binding.btnDetalharLista
+        holder.binding.btnDetalharLista.setOnClickListener {
+            onDetalharClick(lista)
+        }
     }
 
     override fun getItemCount() = ListaLista.size
 
-    inner class MyViewHolder(val binding: ListaAdapterBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(val binding: ListaAdapterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 }
