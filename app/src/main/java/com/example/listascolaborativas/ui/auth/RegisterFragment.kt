@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.listascolaborativas.R
 import com.example.listascolaborativas.databinding.FragmentLoginBinding
 import com.example.listascolaborativas.databinding.FragmentRegisterBinding
+import com.example.listascolaborativas.helper.FirebaseHelper
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -70,6 +71,11 @@ class RegisterFragment : Fragment() {
                 if (task.isSuccessful) {
                     findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
                 } else {
+                    Toast.makeText(
+                        requireContext(),
+                        FirebaseHelper.validError(task.exception?.message ?: ""),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     _binding!!.progressBar.isVisible = false
                 }
             }

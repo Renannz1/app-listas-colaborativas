@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.listascolaborativas.R
 import com.example.listascolaborativas.databinding.FragmentLoginBinding
 import com.example.listascolaborativas.databinding.FragmentRecoverAccountBinding
+import com.example.listascolaborativas.helper.FirebaseHelper
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -59,13 +60,15 @@ class RecoverAccountFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(context, "verifique seu Email!!", Toast.LENGTH_SHORT).show()
-
-
                 }
+                Toast.makeText(
+                    requireContext(),
+                    FirebaseHelper.validError(task.exception?.message ?: ""),
+                    Toast.LENGTH_SHORT
+                ).show()
                 _binding!!.progressBar.isVisible = false
             }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
