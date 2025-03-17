@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "841323040133",
+    "firebase_url": "https://lista-7f873-default-rtdb.firebaseio.com",
+    "project_id": "lista-7f873",
+    "storage_bucket": "lista-7f873.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841323040133:android:2ed9a28b4f5845cc8cc8ec",
+        "android_client_info": {
+          "package_name": "com.example.listascolaborativas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU2YyObZSSz1GltQLWaa5vDW3rFPjOEns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841323040133:android:7bac51ff4f8d47138cc8ec",
+        "android_client_info": {
+          "package_name": "com.example.listascolaborativas.ui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU2YyObZSSz1GltQLWaa5vDW3rFPjOEns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
