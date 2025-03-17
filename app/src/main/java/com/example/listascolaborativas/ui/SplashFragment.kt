@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.listascolaborativas.R
 import com.example.listascolaborativas.databinding.FragmentSplashBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+
 
 class SplashFragment : Fragment() {
     private var _binding: FragmentSplashBinding? = null
@@ -23,7 +26,6 @@ class SplashFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,8 +38,13 @@ class SplashFragment : Fragment() {
     }
 
     private fun checkAuth(){
-        findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-
+        val user = Firebase.auth.currentUser
+        if (user != null) {
+            findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+        } else {
+            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+        }
     }
+
 
 }
