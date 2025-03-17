@@ -60,6 +60,14 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addListaFragment"
+            app:destination="@id/addListaFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addListaFragment"
+        android:name="com.example.listascolaborativas.ui.AddListaFragment"
+        android:label="fragment_add_lista"
+        tools:layout="@layout/fragment_add_lista" />
 
 </navigation>

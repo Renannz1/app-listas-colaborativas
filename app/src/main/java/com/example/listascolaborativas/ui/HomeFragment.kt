@@ -31,6 +31,10 @@ class HomeFragment : Fragment() {
             Firebase.auth.signOut()
             findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
         }
+
+        binding.btnFlutuanteAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_addListaFragment)
+        }
     }
 
     override fun onDestroyView() {

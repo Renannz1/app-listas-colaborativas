@@ -1,11 +1,10 @@
-package com.example.listascolaborativas
+package com.example.listascolaborativas.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
+import com.example.listascolaborativas.R
 import com.example.listascolaborativas.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
