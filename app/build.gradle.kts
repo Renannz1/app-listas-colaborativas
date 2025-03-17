@@ -2,8 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 
-    //fireBase
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -61,3 +59,4 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
 }
+apply(plugin = "com.google.gms.google-services")
