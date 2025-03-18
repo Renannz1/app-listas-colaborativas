@@ -7,7 +7,7 @@ import com.example.listascolaborativas.databinding.ListaAdapterBinding
 import com.example.listascolaborativas.model.Lista
 
 class ListaAdapter(
-    private val ListaLista: List<Lista>,
+    private val listaLista: List<Lista>,
     private val onDetalharClick: (Lista) -> Unit
 ) : RecyclerView.Adapter<ListaAdapter.MyViewHolder>() {
 
@@ -20,7 +20,7 @@ class ListaAdapter(
     }
 
     override fun onBindViewHolder(holder: ListaAdapter.MyViewHolder, position: Int) {
-        val lista = ListaLista[position]
+        val lista = listaLista[position]
 
         holder.binding.textTituloLista.text = lista.titulo
         holder.binding.btnDetalharLista.setOnClickListener {
@@ -28,9 +28,7 @@ class ListaAdapter(
         }
     }
 
-    override fun getItemCount() = ListaLista.size
+    override fun getItemCount() = listaLista.size
 
-    inner class MyViewHolder(val binding: ListaAdapterBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
+    inner class MyViewHolder(val binding: ListaAdapterBinding) : RecyclerView.ViewHolder(binding.root)
 }

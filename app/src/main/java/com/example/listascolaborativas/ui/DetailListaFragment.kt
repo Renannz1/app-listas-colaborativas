@@ -1,60 +1,96 @@
 package com.example.listascolaborativas.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.listascolaborativas.R
+import com.example.listascolaborativas.databinding.FragmentDetailListaBinding // Import the generated ViewBinding class
+import com.example.listascolaborativas.helper.FirebaseHelper
+import com.example.listascolaborativas.model.Lista
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailListaFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailListaFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentDetailListaBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var lista: Lista
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_lista, container, false)
+    ): View {
+        _binding = FragmentDetailListaBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailListaFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailListaFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recuperarLista()
+
+        binding.btnExcluir.setOnClickListener {
+            confirmarExclusao()
+        }
+    }
+
+    private fun confirmarExclusao() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Excluir Lista")
+            .setMessage("Tem certeza que deseja excluir esta lista?")
+            .setPositiveButton("Sim") { _, _ -> excluirLista() }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun recuperarLista() {
+        val id = arguments?.getString("id") ?: ""
+        val titulo = arguments?.getString("titulo") ?: ""
+
+        Log.d("DetailListaFragment", "ID recebido: $id, Título recebido: $titulo") // Debug
+
+        if (id.isNotEmpty()) {
+            lista = Lista(id = id, titulo = titulo)
+        } else {
+            Toast.makeText(requireContext(), "Erro ao carregar lista.", Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun excluirLista() {
+        if (lista.id.isEmpty()) {
+            Toast.makeText(requireContext(), "Erro: ID da lista não encontrado.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        FirebaseHelper
+            .getDatabase()
+            .child("lista") // Nó principal onde as listas estão armazenadas
+            .child(FirebaseHelper.getUserId() ?: "") // ID do usuário logado
+            .child(lista.id) // ID da lista que será excluída
+            .removeValue()
+            .addOnSuccessListener {
+                Log.d("DetailListaFragment", "Tentando excluir a lista com ID: ${lista.id}")
+                Toast.makeText(requireContext(), "Lista excluída com sucesso!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_detailListaFragment_to_homeFragment)
             }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Erro ao excluir a lista.", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

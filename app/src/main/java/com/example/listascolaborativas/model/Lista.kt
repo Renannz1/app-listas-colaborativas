@@ -9,8 +9,5 @@ data class Lista(
     var id: String = "",
     var titulo: String = ""
 ): Parcelable {
-    init {
-        this.id = FirebaseHelper.getDatabase().push().key ?: " "
-    }
 }
 

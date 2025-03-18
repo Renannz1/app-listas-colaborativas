@@ -13,8 +13,7 @@ import com.example.listascolaborativas.adapter.ListaAdapter
 import com.example.listascolaborativas.databinding.FragmentHomeBinding
 import com.example.listascolaborativas.helper.FirebaseHelper
 import com.example.listascolaborativas.model.Lista
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -30,7 +29,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,7 +38,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogout.setOnClickListener {
-            Firebase.auth.signOut()
+            FirebaseAuth.getInstance().signOut()
             findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
         }
 
@@ -47,6 +46,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_addListaFragment)
         }
 
+        initAdapter()
         getLista()
     }
 
@@ -61,18 +61,15 @@ class HomeFragment : Fragment() {
                         listaLista.clear()
 
                         for (snap in snapshot.children) {
-                            val lista = snap.getValue(Lista::class.java) as Lista
-                            listaLista.add(lista)
+                            snap.getValue(Lista::class.java)?.let { listaLista.add(it) }
                         }
 
-                        if (_binding != null) { // Verifica se o binding não é nulo
-                            initAdapter()
-                        }
+                        listaAdapter.notifyDataSetChanged()
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    if (_binding != null) { // Verifica se o binding não é nulo
+                    if (_binding != null) {
                         Toast.makeText(
                             requireContext(),
                             "Erro ao tentar recuperar as tabelas.",
@@ -84,23 +81,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        if (_binding == null) return // Verifica se o binding é nulo
-
         binding.recyclerViewLista.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewLista.setHasFixedSize(true)
         listaAdapter = ListaAdapter(listaLista) { lista ->
             val bundle = Bundle().apply {
+                putString("id", lista.id)
                 putString("titulo", lista.titulo)
             }
-
             findNavController().navigate(R.id.action_homeFragment_to_detailListaFragment, bundle)
         }
-
         binding.recyclerViewLista.adapter = listaAdapter
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Limpa o binding para evitar vazamentos de memória
+        _binding = null
     }
 }
