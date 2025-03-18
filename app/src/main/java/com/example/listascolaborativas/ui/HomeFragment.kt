@@ -25,7 +25,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var listaAdapter: ListaAdapter
-
     private val listaLista = mutableListOf<Lista>()
 
     override fun onCreateView(
@@ -49,8 +48,6 @@ class HomeFragment : Fragment() {
         }
 
         getLista()
-
-
     }
 
     private fun getLista() {
@@ -61,7 +58,6 @@ class HomeFragment : Fragment() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-
                         listaLista.clear()
 
                         for (snap in snapshot.children) {
@@ -69,21 +65,27 @@ class HomeFragment : Fragment() {
                             listaLista.add(lista)
                         }
 
-                        initAdapter()
+                        if (_binding != null) { // Verifica se o binding não é nulo
+                            initAdapter()
+                        }
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Erro ao tentar recuperar as tabelas.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (_binding != null) { // Verifica se o binding não é nulo
+                        Toast.makeText(
+                            requireContext(),
+                            "Erro ao tentar recuperar as tabelas.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             })
     }
 
     private fun initAdapter() {
+        if (_binding == null) return // Verifica se o binding é nulo
+
         binding.recyclerViewLista.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewLista.setHasFixedSize(true)
         listaAdapter = ListaAdapter(listaLista) { lista ->
@@ -97,10 +99,8 @@ class HomeFragment : Fragment() {
         binding.recyclerViewLista.adapter = listaAdapter
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null // Limpa o binding para evitar vazamentos de memória
     }
-
 }

@@ -47,24 +47,37 @@ class AddListaFragment : Fragment() {
     }
 
     private fun saveLista() {
-        FirebaseHelper
-            .getDatabase().child("lista")
-            .child(FirebaseHelper.getUserId() ?: "")
-            .child(lista.id)
-            .setValue(lista)
-            .addOnCompleteListener{ lista ->
-                if (lista.isSuccessful){
-                    if (newLista){ // Criando nova tarefa
+        val userId = FirebaseHelper.getUserId() ?: run {
+            Toast.makeText(requireContext(), "Usuário não autenticado.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val databaseRef = FirebaseHelper.getDatabase().child("lista").child(userId)
+
+        // Gerar novo ID apenas se for uma nova lista
+        val listRef = if (newLista) {
+            val newRef = databaseRef.push()
+            lista.id = newRef.key ?: "" // Define o ID gerado
+            newRef
+        } else {
+            databaseRef.child(lista.id)
+        }
+
+        listRef.setValue(lista)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (newLista) {
                         findNavController().popBackStack()
                         Toast.makeText(requireContext(), "Lista criada.", Toast.LENGTH_SHORT).show()
-                    } else { // Editando tarefa
+                    } else {
                         Toast.makeText(requireContext(), "Lista atualizada.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Erro ao tentar criar a lista.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Erro ao salvar lista.", Toast.LENGTH_SHORT).show()
                 }
-            }.addOnFailureListener {
-                Toast.makeText(requireContext(), "Erro ao tentar criar a lista.", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Erro: ${it.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
