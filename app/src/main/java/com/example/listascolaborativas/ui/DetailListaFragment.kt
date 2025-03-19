@@ -53,8 +53,14 @@ class DetailListaFragment : Fragment() {
             }
         }
 
+        binding.editTituloLista.setText(lista.titulo)
+
         binding.btnExcluir.setOnClickListener {
             confirmarExclusaoLista()
+        }
+
+        binding.btnSalvarAlteracoes.setOnClickListener {
+            salvarAlteracao()
         }
     }
 
@@ -68,6 +74,30 @@ class DetailListaFragment : Fragment() {
             Toast.makeText(requireContext(), "Erro ao carregar lista.", Toast.LENGTH_SHORT).show()
             findNavController().popBackStack()
         }
+    }
+
+    private fun salvarAlteracao(){
+        val novoTitulo = binding.editTituloLista.text.toString().trim()
+
+        if (novoTitulo.isEmpty()){
+            Toast.makeText(requireContext(), "O título não pode ser vazio!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        lista.titulo = novoTitulo
+
+        FirebaseHelper
+            .getDatabase()
+            .child("lista")
+            .child(FirebaseHelper.getUserId() ?: "")
+            .child(lista.id)
+            .setValue(lista)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Lista atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Erro ao atualizar a lista.", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun setupRecyclerView() {

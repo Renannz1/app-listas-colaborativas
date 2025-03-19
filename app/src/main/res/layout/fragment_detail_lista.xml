@@ -16,29 +16,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <!--  Nome da Lista  -->
-        <TextView
-            android:id="@+id/textTitulo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Nome da Lista"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnEditar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <!--  Botão Editar  -->
-        <Button
-            android:id="@+id/btnEditar"
+
+        <EditText
+            android:id="@+id/editTituloLista"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="6dp"
-            android:padding="8dp"
-            android:text="Editar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnExcluir"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:hint="Digite o título"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnSalvarAlteracoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salvar"
+            app:layout_constraintEnd_toStartOf="@+id/btnExcluir" />
+
         <!--  Botão Excluir  -->
         <Button
             android:id="@+id/btnExcluir"
@@ -49,7 +42,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <!--  RecyclerView para listar os itens  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewItensLista"
@@ -63,6 +59,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout"
         tools:listitem="@layout/item_adapter" />
+
+
     <!--  Botão Flutuante para adicionar itens  -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnFlutuanteAdd"
@@ -75,4 +73,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/color_default" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
