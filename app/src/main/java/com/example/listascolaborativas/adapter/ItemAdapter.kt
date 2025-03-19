@@ -2,6 +2,7 @@ package com.example.listascolaborativas.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.listascolaborativas.R
 import com.example.listascolaborativas.model.Item
 import com.example.listascolaborativas.helper.FirebaseHelper
+import android.widget.CheckBox
+
 
 class ItemAdapter(
     private val context: Context,
@@ -29,6 +32,18 @@ class ItemAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = itemList[position]
         holder.bind(item)
+
+        // Ao clicar no checkbox, marca o item como concluído
+        holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
+            item.concluido = isChecked
+            atualizarItemNoFirebase(item)
+            if (isChecked) {
+                // Move o item para o final da lista
+                itemList.removeAt(position)
+                itemList.add(item)
+                notifyItemMoved(position, itemList.size - 1)
+            }
+        }
 
         // Ao clicar no item, navega para o EditItemFragment
         holder.itemView.setOnClickListener {
@@ -108,7 +123,6 @@ class ItemAdapter(
                 .child(item.id)
                 .removeValue()
                 .addOnSuccessListener {
-                    // Verifica se a posição ainda é válida antes de remover
                     if (position >= 0 && position < itemList.size) {
                         itemList.removeAt(position)
                         notifyItemRemoved(position)
@@ -123,11 +137,41 @@ class ItemAdapter(
         }
     }
 
+    private fun atualizarItemNoFirebase(item: Item) {
+        val userId = FirebaseHelper.getUserId()
+        if (userId != null && !item.id.isNullOrEmpty()) {
+            FirebaseHelper.getDatabase()
+                .child("itens")
+                .child(userId)
+                .child(listaId)
+                .child(item.id)
+                .setValue(item)
+                .addOnSuccessListener {
+                    Toast.makeText(context, "Item atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Erro ao atualizar o item.", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val itemNome: TextView = itemView.findViewById(R.id.ItemNome)
+        val itemNome: TextView = itemView.findViewById(R.id.ItemNome)
+        val checkbox: CheckBox = itemView.findViewById(R.id.checkboxItem)
 
         fun bind(item: Item) {
             itemNome.text = item.nome
+            checkbox.isChecked = item.concluido ?: false
+
+            // Aplica o estilo riscado quando o item estiver concluído
+            if (item.concluido == true) {
+                itemNome.paintFlags = itemNome.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                itemNome.paintFlags = itemNome.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            }
         }
     }
 }
+
+
+

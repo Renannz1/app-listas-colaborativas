@@ -130,6 +130,7 @@ class DetailListaFragment : Fragment() {
             })
     }
 
+
     private fun confirmarExclusaoLista() {
         AlertDialog.Builder(requireContext())
             .setTitle("Excluir Lista")
