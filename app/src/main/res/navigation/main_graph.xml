@@ -19,6 +19,7 @@
             android:id="@+id/action_splashFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.listascolaborativas.ui.auth.LoginFragment"
@@ -36,11 +37,13 @@
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+
     <fragment
         android:id="@+id/recoverAccountFragment"
         android:name="com.example.listascolaborativas.ui.auth.RecoverAccountFragment"
         android:label="fragment_recover_account"
         tools:layout="@layout/fragment_recover_account" />
+
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.listascolaborativas.ui.auth.RegisterFragment"
@@ -52,6 +55,7 @@
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.listascolaborativas.ui.HomeFragment"
@@ -67,11 +71,13 @@
             android:id="@+id/action_homeFragment_to_detailListaFragment"
             app:destination="@id/detailListaFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/addListaFragment"
         android:name="com.example.listascolaborativas.ui.AddListaFragment"
         android:label="fragment_add_lista"
         tools:layout="@layout/fragment_add_lista" />
+
     <fragment
         android:id="@+id/detailListaFragment"
         android:name="com.example.listascolaborativas.ui.DetailListaFragment"
@@ -83,10 +89,21 @@
         <action
             android:id="@+id/action_detailListaFragment_to_itemFragment"
             app:destination="@id/itemFragment" />
+        <action
+            android:id="@+id/action_detailListaFragment_to_editItemFragment"
+            app:destination="@id/editItemFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.example.listascolaborativas.ui.ItemFragment"
         android:label="ItemFragment"
         tools:layout="@layout/fragment_item"/>
+
+    <!-- CORREÇÃO: Alterado de "activity" para "fragment" -->
+    <fragment
+        android:id="@+id/editItemFragment"
+        android:name="com.example.listascolaborativas.ui.EditItemFragment"
+        android:label="EditItemFragment"
+        tools:layout="@layout/fragment_edit_item"/>
 </navigation>
