@@ -17,7 +17,7 @@ import com.example.listascolaborativas.helper.FirebaseHelper
 class ItemAdapter(
     private val context: Context,
     private val itemList: MutableList<Item>,
-    private val listaId: String // Adicionado para passar o ID da lista
+    private val listaId: String
 ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -33,7 +33,7 @@ class ItemAdapter(
         // Ao clicar no item, navega para o EditItemFragment
         holder.itemView.setOnClickListener {
             val bundle = Bundle().apply {
-                putString("listaId", listaId) // Passa o ID da lista
+                putString("listaId", listaId)
                 putString("itemId", item.id)
                 putString("itemNome", item.nome)
             }
@@ -54,41 +54,73 @@ class ItemAdapter(
         builder.setTitle("Escolha uma ação")
         builder.setMessage("Deseja editar ou excluir este item?")
 
+        // Botão para editar
         builder.setPositiveButton("Editar") { _, _ ->
             val bundle = Bundle().apply {
-                putString("listaId", listaId) // Passa o ID da lista
+                putString("listaId", listaId)
                 putString("itemId", item.id)
                 putString("itemNome", item.nome)
             }
             view.findNavController().navigate(R.id.action_detailListaFragment_to_editItemFragment, bundle)
         }
 
+        // Botão para excluir
         builder.setNegativeButton("Excluir") { _, _ ->
-            val userId = FirebaseHelper.getUserId()
-            if (userId != null && !item.id.isNullOrEmpty()) {
-                FirebaseHelper.getDatabase()
-                    .child("itens")
-                    .child(userId)
-                    .child(listaId)
-                    .child(item.id)
-                    .removeValue()
-                    .addOnSuccessListener {
-                        itemList.removeAt(position)
-                        notifyItemRemoved(position)
-                        Toast.makeText(context, "Item excluído", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(context, "Erro ao excluir", Toast.LENGTH_SHORT).show()
-                    }
-            }
+            // Exibe uma mensagem de confirmação antes de excluir
+            confirmarExclusaoItem(item, position)
         }
 
+        // Botão para cancelar
         builder.setNeutralButton("Cancelar") { dialog, _ ->
             dialog.dismiss()
         }
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun confirmarExclusaoItem(item: Item, position: Int) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Confirmar exclusão")
+        builder.setMessage("Tem certeza que deseja excluir este item?")
+
+        // Botão para confirmar a exclusão
+        builder.setPositiveButton("Sim") { _, _ ->
+            excluirItemDoFirebase(item, position)
+        }
+
+        // Botão para cancelar
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun excluirItemDoFirebase(item: Item, position: Int) {
+        val userId = FirebaseHelper.getUserId()
+        if (userId != null && !item.id.isNullOrEmpty()) {
+            FirebaseHelper.getDatabase()
+                .child("itens")
+                .child(userId)
+                .child(listaId)
+                .child(item.id)
+                .removeValue()
+                .addOnSuccessListener {
+                    // Verifica se a posição ainda é válida antes de remover
+                    if (position >= 0 && position < itemList.size) {
+                        itemList.removeAt(position)
+                        notifyItemRemoved(position)
+                        Toast.makeText(context, "Item excluído com sucesso!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, "Erro: Posição inválida.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Erro ao excluir o item.", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
