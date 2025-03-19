@@ -10,4 +10,17 @@
     <color name="color_todo">#FF7803</color>
     <color name="color_doing">#03B6FC</color>
     <color name="color_done">#04D5C1</color>
+
+    <color name="light_gray">#EDEDED</color> <!-- Fundo da tela -->
+
+    <!-- Cores dos inputs -->
+    <color name="light_blue">#CDE6FF</color> <!-- Campos de entrada -->
+
+    <!-- Cores do botão -->
+    <color name="purple_light">#D8BFD8</color> <!-- Botão "Tudo pronto!" -->
+
+    <!-- Cores dos textos -->
+    <color name="text_black">#111111</color> <!-- Textos principais -->
+    <color name="text_gray">#666666</color> <!-- Textos secundários -->
+    <color name="blue">#0000EE</color> <!-- Links como "Esqueci a senha" e "Faça o login" -->
 </resources>
