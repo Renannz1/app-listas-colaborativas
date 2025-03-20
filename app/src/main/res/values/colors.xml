@@ -14,7 +14,7 @@
     <color name="light_gray">#EDEDED</color> <!-- Fundo da tela -->
     <color name="dark_gray">#2F2F2F</color>
 
-    <!-- Cores dos inputs -->
+    <!-- Cores dos inputs -->a
     <color name="light_blue">#CDE6FF</color> <!-- Campos de entrada -->
 
     <!-- Cores do botão -->
@@ -23,5 +23,7 @@
     <!-- Cores dos textos -->
     <color name="text_black">#111111</color> <!-- Textos principais -->
     <color name="text_gray">#666666</color> <!-- Textos secundários -->
-    <color name="blue">#0000EE</color> <!-- Links como "Esqueci a senha" e "Faça o login" -->
+    <color name="blue">#0000EE</color>
+    <color name="purple">#673AB7</color><!-- Links como "Esqueci a senha" e "Faça o login" -->
+    <color name="purple_lighter">#8576BD</color>
 </resources>
