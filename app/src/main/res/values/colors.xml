@@ -12,6 +12,7 @@
     <color name="color_done">#04D5C1</color>
 
     <color name="light_gray">#EDEDED</color> <!-- Fundo da tela -->
+    <color name="dark_gray">#2F2F2F</color>
 
     <!-- Cores dos inputs -->
     <color name="light_blue">#CDE6FF</color> <!-- Campos de entrada -->
