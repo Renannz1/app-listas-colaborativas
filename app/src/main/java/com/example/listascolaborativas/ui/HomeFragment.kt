@@ -12,6 +12,7 @@ import com.example.listascolaborativas.R
 import com.example.listascolaborativas.adapter.ListaAdapter
 import com.example.listascolaborativas.databinding.FragmentHomeBinding
 import com.example.listascolaborativas.helper.FirebaseHelper
+import com.example.listascolaborativas.model.LifecycleLogger
 import com.example.listascolaborativas.model.Lista
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -25,6 +26,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var listaAdapter: ListaAdapter
     private val listaLista = mutableListOf<Lista>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        LifecycleLogger.addLog("HomeFragment", "onCreate")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,10 +54,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnCiclo.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_ciclosFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_lifecycleLogFragment)
         }
-
-
         initAdapter()
         getLista()
     }
@@ -102,4 +107,30 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onStart() {
+        super.onStart()
+        LifecycleLogger.addLog("HomeFragment", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LifecycleLogger.addLog("HomeFragment", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LifecycleLogger.addLog("HomeFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LifecycleLogger.addLog("HomeFragment", "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LifecycleLogger.addLog("HomeFragment", "onDestroy")
+    }
+
 }

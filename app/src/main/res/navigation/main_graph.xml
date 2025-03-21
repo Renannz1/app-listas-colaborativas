@@ -75,8 +75,8 @@
             android:id="@+id/action_homeFragment_to_detailListaFragment"
             app:destination="@id/detailListaFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_ciclosFragment"
-            app:destination="@id/ciclosFragment" />
+            android:id="@+id/action_homeFragment_to_lifecycleLogFragment"
+            app:destination="@id/lifecycleLogFragment" />
     </fragment>
 
     <fragment
@@ -114,8 +114,7 @@
         android:label="EditItemFragment"
         tools:layout="@layout/fragment_edit_item"/>
     <fragment
-        android:id="@+id/ciclosFragment"
-        android:name="com.example.listascolaborativas.ui.CiclosFragment"
-        android:label="CiclosFragment"
-        tools:layout="@layout/fragment_ciclos"/>
+        android:id="@+id/lifecycleLogFragment"
+        android:name="com.example.listascolaborativas.ui.LifecycleLogFragment"
+        android:label="LifecycleLogFragment" />
 </navigation>
