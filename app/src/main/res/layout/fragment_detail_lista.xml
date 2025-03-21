@@ -6,116 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".ui.DetailListaFragment">
 
-
     <!-- Layout principal -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/dark_gray">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/purple">
 
-
-            <!-- Header -->
+            <!-- Header simplificado com EditText e botões -->
             <RelativeLayout
                 android:id="@+id/relativeLayoutHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/purple"
-                android:padding="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toTopOf="parent">
 
-
-                <TextView
-                    android:id="@+id/tituloHeaderApp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Detalhes da Lista"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/poppins"
-                    android:layout_alignParentStart="true" />
-
-
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@id/tituloHeaderApp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/light_gray" />
-            </RelativeLayout>
-
-
-            <!-- Container para edição da lista -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintTop_toBottomOf="@id/relativeLayoutHeader"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-
+                <!-- EditText no header -->
                 <EditText
                     android:id="@+id/editTituloLista"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Digite o título"
-                    android:textSize="24sp"
-                    android:textColorHint="@color/dark_gray"
-                    android:padding="12dp"
-                    android:textColor="@color/black"
-                    android:background="@drawable/rounded_edit_text"
-                    android:elevation="2dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    android:layout_toStartOf="@+id/containerBotoes"
+                    android:layout_marginEnd="16dp"
+                    android:hint="Título"
+                    android:textSize="26sp"
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:layout_centerVertical="true" />
 
-
-                <!-- Container para botões -->
+                <!-- Container para ícones -->
                 <LinearLayout
+                    android:id="@+id/containerBotoes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/editTituloLista"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true">
 
+                    <ImageButton
+                        android:id="@+id/btnSalvar"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_save"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/white"
+                        android:contentDescription="Salvar lista" />
 
-                    <Button
-                        android:id="@+id/btnSalvarAlteracoes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Salvar"
-                        android:backgroundTint="@color/purple_lighter"
-                        android:textColor="@color/white"
-                        android:paddingHorizontal="16dp" />
-
-
-                    <Button
+                    <ImageButton
                         android:id="@+id/btnExcluir"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/purple_lighter"
-                        android:textColor="@color/white"
-                        android:text="Excluir"
-                        android:layout_marginStart="8dp"
-                        android:paddingHorizontal="16dp" />
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_delete"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/white"
+                        android:layout_marginStart="16dp"
+                        android:contentDescription="Excluir lista" />
                 </LinearLayout>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            </RelativeLayout>
 
             <!-- RecyclerView para listar os itens -->
             <androidx.recyclerview.widget.RecyclerView
@@ -125,12 +80,11 @@
                 android:layout_marginTop="16dp"
                 android:padding="8dp"
                 android:background="@color/light_gray"
-                app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/relativeLayoutHeader"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:listitem="@layout/item_adapter" />
-
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnFlutuanteAdd"
@@ -138,15 +92,14 @@
                 android:layout_height="56dp"
                 android:layout_margin="16dp"
                 android:translationY="-50dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/purple"
                 android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:tint="@color/color_default"
-                android:elevation="6dp"/> <!-- Adicione uma elevação -->
+                app:tint="@color/white"
+                android:elevation="6dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout> <!-- Fechamento correto deste ConstraintLayout -->
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -59,7 +59,7 @@ class DetailListaFragment : Fragment() {
             confirmarExclusaoLista()
         }
 
-        binding.btnSalvarAlteracoes.setOnClickListener {
+        binding.btnSalvar.setOnClickListener {
             salvarAlteracao()
         }
     }

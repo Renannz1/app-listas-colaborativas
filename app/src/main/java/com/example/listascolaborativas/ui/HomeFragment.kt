@@ -46,6 +46,11 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_addListaFragment)
         }
 
+        binding.btnCiclo.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_ciclosFragment)
+        }
+
+
         initAdapter()
         getLista()
     }
