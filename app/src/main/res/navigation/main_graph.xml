@@ -42,7 +42,11 @@
         android:id="@+id/recoverAccountFragment"
         android:name="com.example.listascolaborativas.ui.auth.RecoverAccountFragment"
         android:label="fragment_recover_account"
-        tools:layout="@layout/fragment_recover_account" />
+        tools:layout="@layout/fragment_recover_account" >
+        <action
+            android:id="@+id/action_recoverAccountFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/registerFragment"

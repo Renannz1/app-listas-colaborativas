@@ -41,6 +41,9 @@ class RecoverAccountFragment : Fragment() {
 
     private fun initClicks() {
         binding.btnSend.setOnClickListener { valideteData() }
+        binding.btnBackToLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_recoverAccountFragment_to_loginFragment)
+        }
     }
     private fun valideteData(){
         val email = binding.addEmail.text.toString().trim()
