@@ -23,7 +23,7 @@ class ListaAdapter(
         val lista = listaLista[position]
 
         holder.binding.textTituloLista.text = lista.titulo
-        holder.binding.btnDetalharLista.setOnClickListener {
+        holder.binding.cardButton.setOnClickListener {
             onDetalharClick(lista)
         }
     }

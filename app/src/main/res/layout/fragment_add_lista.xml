@@ -19,26 +19,19 @@
             android:layout_height="wrap_content"
             android:background="@color/purple"
             android:padding="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tituloHeaderApp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cria Lista"
+                android:text="Criar Lista"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/poppins"
                 android:layout_alignParentStart="true"/>
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_below="@id/tituloHeaderApp"
-                android:layout_marginTop="8dp"
-                android:background="@color/light_gray" />
         </RelativeLayout>
 
         <!-- Conteúdo rolável -->
@@ -61,42 +54,40 @@
                     android:layout_height="wrap_content"
                     android:text="Título"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnSave"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_save"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Criar lista"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textTituloLista"
+                    app:layout_constraintBottom_toBottomOf="@id/textTituloLista" />
 
                 <EditText
                     android:id="@+id/edtTituloLista"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_edit_text"
+                    android:background="@drawable/white_background_purple_border"
                     android:hint="Digite o título da sua lista"
                     android:textColorHint="@color/dark_gray"
-                    android:padding="14dp"
-                    android:textSize="16sp"
+                    android:padding="20dp"
+                    android:textSize="20sp"
                     android:elevation="2dp"
                     android:textColor="@color/black"
                     android:inputType="text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textTituloLista"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="24dp" />
 
-                <Button
-                    android:id="@+id/btnSave"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_purple"
-                    android:text="Criar"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:elevation="4dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/edtTituloLista" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SplashFragment">
+    tools:context=".ui.SplashFragment"
+    android:background="@color/purple">
 
     <ImageView
         android:layout_width="150dp"

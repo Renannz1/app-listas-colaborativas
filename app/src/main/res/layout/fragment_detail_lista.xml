@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/purple"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="80dp"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <!-- EditText no header -->
