@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.listascolaborativas.R
 import com.example.listascolaborativas.databinding.FragmentAddListaBinding
 import com.example.listascolaborativas.helper.FirebaseHelper
+import com.example.listascolaborativas.model.LifecycleLogger
 import com.example.listascolaborativas.model.Lista
 
 class AddListaFragment : Fragment() {
@@ -84,5 +85,35 @@ class AddListaFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        LifecycleLogger.addLog("AddListaFragment", "onStart")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        LifecycleLogger.addLog("AddListaFragment", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LifecycleLogger.addLog("AddListaFragment", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LifecycleLogger.addLog("AddListaFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LifecycleLogger.addLog("AddListaFragment", "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LifecycleLogger.addLog("AddListaFragment", "onDestroy")
     }
 }

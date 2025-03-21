@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.listascolaborativas.R
 import com.example.listascolaborativas.databinding.FragmentSplashBinding
+import com.example.listascolaborativas.model.LifecycleLogger
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -35,6 +36,7 @@ class SplashFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        LifecycleLogger.addLog("SplashFragment", "onStop")
     }
 
     private fun checkAuth(){
@@ -46,5 +48,29 @@ class SplashFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        LifecycleLogger.addLog("SplashFragment", "onStart")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        LifecycleLogger.addLog("SplashFragment", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LifecycleLogger.addLog("SplashFragment", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LifecycleLogger.addLog("SplashFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LifecycleLogger.addLog("SplashFragment", "onStop")
+    }
 
 }

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.listascolaborativas.databinding.FragmentEditItemBinding
 import com.example.listascolaborativas.helper.FirebaseHelper
 import com.example.listascolaborativas.model.Item
+import com.example.listascolaborativas.model.LifecycleLogger
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -99,5 +100,35 @@ class EditItemFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        LifecycleLogger.addLog("EditItemFragment", "onStart")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        LifecycleLogger.addLog("EditItemFragment", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LifecycleLogger.addLog("EditItemFragment", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LifecycleLogger.addLog("EditItemFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LifecycleLogger.addLog("EditItemFragment", "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LifecycleLogger.addLog("EditItemFragment", "onDestroy")
     }
 }

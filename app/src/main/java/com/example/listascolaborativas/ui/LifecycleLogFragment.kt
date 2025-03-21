@@ -37,7 +37,7 @@ class LifecycleLogFragment : Fragment() {
     }
 
     private fun atualizarLogs() {
-        val logs = LifecycleLogger.getLogs().reversed()
+        val logs = LifecycleLogger.getLogs()
         binding.textLogs.text = if (logs.isNotEmpty()) {
             logs.joinToString("\n")
         } else {

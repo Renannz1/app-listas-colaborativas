@@ -4,7 +4,7 @@ object LifecycleLogger {
     private val logs = mutableListOf<String>()
 
     fun addLog(fragmentName: String, method: String) {
-        logs.add("$fragmentName - $method: ${System.currentTimeMillis()}")
+        logs.add("$fragmentName - $method")
     }
 
     fun getLogs(): List<String> {

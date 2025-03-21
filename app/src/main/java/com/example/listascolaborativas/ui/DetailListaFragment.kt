@@ -15,6 +15,7 @@ import com.example.listascolaborativas.adapter.ItemAdapter
 import com.example.listascolaborativas.databinding.FragmentDetailListaBinding
 import com.example.listascolaborativas.helper.FirebaseHelper
 import com.example.listascolaborativas.model.Item
+import com.example.listascolaborativas.model.LifecycleLogger
 import com.example.listascolaborativas.model.Lista
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -162,5 +163,35 @@ class DetailListaFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        LifecycleLogger.addLog("DetailListaFragment", "onStart")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        LifecycleLogger.addLog("DetailListaFragment", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LifecycleLogger.addLog("DetailListaFragment", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LifecycleLogger.addLog("DetailListaFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LifecycleLogger.addLog("DetailListaFragment", "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LifecycleLogger.addLog("DetailListaFragment", "onDestroy")
     }
 }
